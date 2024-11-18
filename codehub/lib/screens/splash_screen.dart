@@ -17,7 +17,8 @@ class _SplashScreenState extends State<SplashScreen>
     // Mengatur mode UI agar fullscreen
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-    Future.delayed(const Duration(seconds: 1), () {
+    // Perpanjang durasi splash screen menjadi 3 detik
+    Future.delayed(const Duration(seconds: 3), () {
       // ignore: use_build_context_synchronously
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
@@ -27,6 +28,7 @@ class _SplashScreenState extends State<SplashScreen>
     });
   }
 
+  @override
   void dispose() {
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.manual,
         overlays: SystemUiOverlay.values);
@@ -38,7 +40,7 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       body: Container(
         width: double.infinity,
-        decoration: const BoxDecoration(color: Color(0xff0F0052)),
+        decoration: const BoxDecoration(color: Color(0xff002095)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
@@ -54,7 +56,7 @@ class _SplashScreenState extends State<SplashScreen>
         ),
       ),
       bottomNavigationBar: const BottomAppBar(
-        color: Color(0xff0F0052),
+        color: Color(0xff002095),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
