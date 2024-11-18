@@ -25,6 +25,8 @@ class HomeScreen extends StatefulWidget {
 
 class _HomeScreenState extends State<HomeScreen> {
   int _selectedIndex = 0;
+  final GlobalKey<ScaffoldState> _scaffoldKey =
+      GlobalKey<ScaffoldState>(); // Tambahkan kunci
 
   @override
   void initState() {
@@ -42,14 +44,10 @@ class _HomeScreenState extends State<HomeScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      key: _scaffoldKey, // Tetapkan kunci di sini
       appBar: AppBar(
-        backgroundColor: const Color(0xff002095),
-        leading: IconButton(
-          icon: const Icon(Icons.menu),
-          tooltip: 'Menu',
-          onPressed: () {},
-          color: const Color(0xffffffff),
-        ),
+        automaticallyImplyLeading: false, // Menghilangkan ikon menu default
+        backgroundColor: const Color(0xff001125),
         title: const Text(
           'Code Hub',
           style: TextStyle(
@@ -57,17 +55,67 @@ class _HomeScreenState extends State<HomeScreen> {
             fontSize: 20, // Ukuran teks (opsional)
           ),
         ),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.menu),
+            color: Colors.white, // Atur warna ikon menjadi putih
+            onPressed: () {
+              _scaffoldKey.currentState
+                  ?.openDrawer(); // Gunakan kunci untuk membuka drawer
+            },
+          ),
+        ],
       ),
-      body: Center(
-        child: Text(
-          'Selected: ${_selectedIndex == 0 ? "Calls" : _selectedIndex == 1 ? "Camera" : _selectedIndex == 2 ? "Chats" : "Mail"}',
-          style: const TextStyle(fontSize: 24),
-          textAlign: TextAlign.center,
+
+      drawer: Drawer(
+        backgroundColor: const Color(0xff1B3C71),
+        child: ListView(
+          children: [
+            ListTile(
+              title: const Text('item 1'),
+              textColor: Colors.white, // Atur warna teks
+              onTap: () {},
+            ),
+            ListTile(
+              title: const Text('item 2'),
+              textColor: Colors.white, // Atur warna teks
+              onTap: () {},
+            ),
+          ],
         ),
       ),
+
+      body: Container(
+        color: const Color(0xff001125), // Menambahkan warna latar belakang
+        width: double.infinity,
+        child: Column(
+          crossAxisAlignment:
+              CrossAxisAlignment.center, // Pusatkan secara horizontal
+          children: [
+            Image.asset(
+              'assets/studyprograming.png',
+              width: 300,
+              height: 300,
+            ),
+            const SizedBox(
+              height: 20, // Memberi jarak antara gambar dan teks
+            ),
+            Text(
+              'Selected: ${_selectedIndex == 0 ? "Calls" : _selectedIndex == 1 ? "Camera" : _selectedIndex == 2 ? "Chats" : "Mail"}',
+              style: const TextStyle(
+                fontSize: 24,
+                color: Colors
+                    .white, // Warna teks agar terlihat di background gelap
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+
       bottomNavigationBar: BottomNavigationBar(
         type: BottomNavigationBarType.fixed,
-        backgroundColor: const Color(0xff002095),
+        backgroundColor: const Color(0xff001125),
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: Padding(
