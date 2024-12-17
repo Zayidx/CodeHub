@@ -137,27 +137,66 @@ class _HomeScreenState extends State<HomeScreen> {
 class HomePage extends StatelessWidget {
   const HomePage({super.key});
 
-  void _showPopup(BuildContext context, String message) {
+  void _showPopup(BuildContext context, String message,
+      {double fontSize = 14.0,
+      double borderRadius = 12.0,
+      Color bgColor = const Color(0xff1B3C71),
+      Color dividerColor = Colors.white}) {
     showDialog(
       context: context,
-      builder: (ctx) => AlertDialog(
-        backgroundColor: const Color(0xff1B3C71),
-        title: const Text(
-          'Informasi',
-          style: TextStyle(color: Colors.white),
-        ),
-        content: Text(
-          message,
-          style: const TextStyle(color: Colors.white70),
-        ),
-        actions: [
-          TextButton(
-            onPressed: () {
-              Navigator.of(ctx).pop();
-            },
-            child: const Text('OK', style: TextStyle(color: Colors.white)),
+      builder: (ctx) => Dialog(
+        backgroundColor: Colors.transparent, // Transparan agar border terlihat
+        child: Container(
+          decoration: BoxDecoration(
+            color: bgColor, // Warna latar belakang
+            borderRadius: BorderRadius.circular(borderRadius), // Border radius
           ),
-        ],
+          padding: const EdgeInsets.all(16.0),
+          constraints: BoxConstraints(
+            maxWidth: MediaQuery.of(context).size.width *
+                0.2, // Membatasi lebar 80% dari lebar layar
+          ),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              const Text(
+                'Informasi',
+                style: TextStyle(
+                  color: Colors.white,
+                  fontSize: 18, // Ukuran font title
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+              const SizedBox(height: 10),
+              Text(
+                message,
+                style: TextStyle(
+                  color: Colors.white70,
+                  fontSize: fontSize, // Ukuran font isi pesan
+                ),
+                textAlign: TextAlign.center,
+              ),
+              const SizedBox(height: 10),
+              Container(
+                height: 1, // Tinggi garis pembatas
+                color: dividerColor, // Warna garis pembatas
+                margin: const EdgeInsets.symmetric(vertical: 10),
+              ),
+              Align(
+                alignment: Alignment.center,
+                child: TextButton(
+                  onPressed: () {
+                    Navigator.of(ctx).pop();
+                  },
+                  child: const Text(
+                    'OK',
+                    style: TextStyle(color: Colors.white),
+                  ),
+                ),
+              ),
+            ],
+          ),
+        ),
       ),
     );
   }
@@ -215,15 +254,21 @@ class HomePage extends StatelessWidget {
                       margin: const EdgeInsets.only(bottom: 20),
                       child: ElevatedButton(
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Color(0xff002095),
-                          padding: const EdgeInsets.symmetric(vertical: 20),
+                          backgroundColor: Color(0xff003cb0),
+                          padding: const EdgeInsets.symmetric(vertical: 30),
                           shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(12),
+                            borderRadius: BorderRadius.circular(10),
                           ),
                         ),
                         onPressed: () {
                           _showPopup(
-                              context, 'Informasi tentang aplikasi CyberStudy');
+                            context,
+                            'Terima Kasih telah bergabung bersama kami, CodeHub akan selalu update materi-materi seputar dunia IT dll, aplikasi ini dibuat dengan tujuan menyalurkan semangat anak bangsa untuk memajukan industri IT di semua bidang IT, mohon untuk tidak mengubah konten / memodifikasi / mencuri source code tanpa izin kami, terima kasih...',
+                            fontSize: 16.0, // Ukuran font isi pesan
+                            borderRadius: 20.0, // Border radius pop-up
+                            bgColor:
+                                const Color(0xff002095), // Warna background
+                          );
                         },
                         child: const Text(
                           'INFORMASI',
@@ -289,7 +334,7 @@ class HomePage extends StatelessWidget {
                       title: 'Pemrograman',
                       subtitle: 'Programming',
                       imagePath:
-                          'assets/pemograman-logo.png', // Path ke gambar Pemrograman
+                          'assets/pemrograman-logo.png', // Path ke gambar Pemrograman
                       color: const Color(0xff000a52),
                       onTap: () {
                         Navigator.push(
@@ -311,10 +356,10 @@ class HomePage extends StatelessWidget {
                           BorderRadius.circular(8), // Optional: rounded corners
                     ),
                     child: _buildCardWithImage(
-                      title: 'Pemrograman',
-                      subtitle: 'Programming',
+                      title: 'Jaringan internet',
+                      subtitle: 'Networking',
                       imagePath:
-                          'assets/pemograman-logo.png', // Path ke gambar Pemrograman
+                          'assets/jaringan-logo.png', // Path ke gambar Pemrograman
                       color: const Color(0xff000a52),
                       onTap: () {
                         Navigator.push(
@@ -336,10 +381,10 @@ class HomePage extends StatelessWidget {
                           BorderRadius.circular(8), // Optional: rounded corners
                     ),
                     child: _buildCardWithImage(
-                      title: 'Pemrograman',
-                      subtitle: 'Programming',
+                      title: 'Perangkat Lunak',
+                      subtitle: 'Software',
                       imagePath:
-                          'assets/pemograman-logo.png', // Path ke gambar Pemrograman
+                          'assets/perangkatlunak-logo.png', // Path ke gambar Pemrograman
                       color: const Color(0xff000a52),
                       onTap: () {
                         Navigator.push(
@@ -361,10 +406,10 @@ class HomePage extends StatelessWidget {
                           BorderRadius.circular(8), // Optional: rounded corners
                     ),
                     child: _buildCardWithImage(
-                      title: 'Pemrograman',
-                      subtitle: 'Programming',
+                      title: 'Perangkat Keras',
+                      subtitle: 'Hardware',
                       imagePath:
-                          'assets/pemograman-logo.png', // Path ke gambar Pemrograman
+                          'assets/perangkatkeras-logo.png', // Path ke gambar Pemrograman
                       color: const Color(0xff000a52),
                       onTap: () {
                         Navigator.push(
@@ -386,10 +431,10 @@ class HomePage extends StatelessWidget {
                           BorderRadius.circular(8), // Optional: rounded corners
                     ),
                     child: _buildCardWithImage(
-                      title: 'Pemrograman',
-                      subtitle: 'Programming',
+                      title: 'Script Terminal',
+                      subtitle: 'Terminal Tools',
                       imagePath:
-                          'assets/pemograman-logo.png', // Path ke gambar Pemrograman
+                          'assets/script-logo.png', // Path ke gambar Pemrograman
                       color: const Color(0xff000a52),
                       onTap: () {
                         Navigator.push(
@@ -401,6 +446,7 @@ class HomePage extends StatelessWidget {
                       },
                     ),
                   ),
+                  const SizedBox(height: 1),
                 ],
               ),
             )
@@ -436,7 +482,7 @@ class HomePage extends StatelessWidget {
             const SizedBox(height: 10),
             Text(
               title,
-              style: const TextStyle(fontSize: 18, color: Colors.white),
+              style: const TextStyle(fontSize: 18, color: Colors.blue),
             ),
             Text(
               subtitle,
