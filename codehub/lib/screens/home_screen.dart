@@ -71,6 +71,14 @@ class _HomeScreenState extends State<HomeScreen> {
         backgroundColor: const Color(0xff1B3C71),
         child: ListView(
           children: [
+            Image.asset(
+              'assets/studyprograming.png',
+            ),
+            ListTile(
+              title: const Text('Code Hub'),
+              textColor: Colors.white, // Atur warna teks
+              onTap: () {},
+            ),
             ListTile(
               title: const Text('item 1'),
               textColor: Colors.white, // Atur warna teks
@@ -100,6 +108,77 @@ class _HomeScreenState extends State<HomeScreen> {
             const SizedBox(
               height: 20, // Memberi jarak antara gambar dan teks
             ),
+            Column(
+              children: [
+                Visibility(
+                  visible: _selectedIndex ==
+                      2, // Hanya akan tampil jika _selectedIndex == 2
+                  child: const Text(
+                    "Woii",
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: _selectedIndex ==
+                      2, // Hanya akan tampil jika _selectedIndex == 2
+                  child: Image.asset(
+                    'assets/studyprograming.png',
+                    width: 300,
+                  ),
+                ),
+              ],
+            ),
+            Column(
+              children: [
+                Visibility(
+                  visible: _selectedIndex ==
+                      0, // Hanya akan tampil jika _selectedIndex == 0
+                  child: const Text(
+                    "Woii",
+                    style: TextStyle(
+                      fontSize: 24,
+                      color: Colors.white,
+                    ),
+                  ),
+                ),
+                Visibility(
+                  visible: _selectedIndex ==
+                      0, // Hanya akan tampil jika _selectedIndex == 0
+                  child: Image.asset(
+                    'assets/studyprograming.png',
+                    width: 300,
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 20), // Memberi jarak sebelum tombol
+            ElevatedButton(
+              onPressed: () {
+                // Menampilkan dialog ketika tombol ditekan
+                showDialog(
+                  context: context,
+                  builder: (BuildContext context) {
+                    return AlertDialog(
+                      title: const Text("Test Alert Dialog"),
+                      content: const Text("Ini adalah contoh alert dialog."),
+                      actions: [
+                        TextButton(
+                          onPressed: () {
+                            Navigator.of(context).pop(); // Menutup dialog
+                          },
+                          child: const Text("Tutup"),
+                        ),
+                      ],
+                    );
+                  },
+                );
+              },
+              child: const Text("Test Alert Dialog"),
+            ),
+
             Text(
               'Selected: ${_selectedIndex == 0 ? "Calls" : _selectedIndex == 1 ? "Camera" : _selectedIndex == 2 ? "Chats" : "Mail"}',
               style: const TextStyle(
@@ -147,8 +226,8 @@ class _HomeScreenState extends State<HomeScreen> {
           ),
         ],
         currentIndex: _selectedIndex,
-        selectedItemColor: Colors.blue,
-        unselectedItemColor: Colors.white,
+        selectedItemColor: Colors.white,
+        unselectedItemColor: const Color(0xff8c8c8c),
         onTap: _onItemTapped,
         selectedIconTheme: const IconThemeData(
           size: 24, // Ukuran ikon saat dipilih
