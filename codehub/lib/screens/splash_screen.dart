@@ -11,15 +11,23 @@ class SplashScreen extends StatefulWidget {
 
 class _SplashScreenState extends State<SplashScreen>
     with SingleTickerProviderStateMixin {
+  double _opacity = 0.0;
+
   @override
   void initState() {
     super.initState();
     // Mengatur mode UI agar fullscreen
     SystemChrome.setEnabledSystemUIMode(SystemUiMode.immersive);
 
-    // Perpanjang durasi splash screen menjadi 3 detik
+    // Menjalankan animasi fade-in
+    Future.delayed(const Duration(milliseconds: 100), () {
+      setState(() {
+        _opacity = 1.0;
+      });
+    });
+
+    // Navigasi ke HomeScreen setelah 3 detik
     Future.delayed(const Duration(seconds: 3), () {
-      // ignore: use_build_context_synchronously
       Navigator.of(context).pushReplacement(
         MaterialPageRoute(
           builder: (_) => const HomeScreen(),
@@ -40,23 +48,28 @@ class _SplashScreenState extends State<SplashScreen>
     return Scaffold(
       body: Container(
         width: double.infinity,
-        decoration: const BoxDecoration(color: Color(0xff002095)),
+        decoration: const BoxDecoration(color: Color(0xff000a52)),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Image.asset(
-              'assets/codehub-logo.png',
-              width: 150,
-              height: 150,
+            AnimatedOpacity(
+              opacity: _opacity,
+              duration: const Duration(seconds: 3),
+              child: Image.asset(
+                'assets/codehub-logo.png',
+                width: 150,
+                height: 150,
+              ),
             ),
-            const SizedBox(
-              height: 20,
+            const SizedBox(height: 100),
+            const CircularProgressIndicator(
+              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
             ),
           ],
         ),
       ),
       bottomNavigationBar: const BottomAppBar(
-        color: Color(0xff002095),
+        color: Color(0xff000a52),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
